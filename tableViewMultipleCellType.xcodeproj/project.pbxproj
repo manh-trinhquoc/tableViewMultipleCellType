@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F58679E221C36387002173B5 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58679E121C36387002173B5 /* Model.swift */; };
+		F58679E421C36428002173B5 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58679E321C36428002173B5 /* ViewModel.swift */; };
+		F58679E821C3A505002173B5 /* DRHNameAndPictureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58679E621C3A505002173B5 /* DRHNameAndPictureCell.swift */; };
+		F58679E921C3A505002173B5 /* DRHNameAndPictureCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F58679E721C3A505002173B5 /* DRHNameAndPictureCell.xib */; };
+		F58679EC21C3A659002173B5 /* EmailAndAboutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58679EA21C3A659002173B5 /* EmailAndAboutCell.swift */; };
+		F58679ED21C3A659002173B5 /* EmailAndAboutCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F58679EB21C3A659002173B5 /* EmailAndAboutCell.xib */; };
+		F58679F021C3A755002173B5 /* AttributeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58679EE21C3A755002173B5 /* AttributeCell.swift */; };
+		F58679F121C3A755002173B5 /* AttributeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F58679EF21C3A755002173B5 /* AttributeCell.xib */; };
 		F5CF4D7821C3515D00D9A168 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5CF4D7721C3515D00D9A168 /* AppDelegate.swift */; };
 		F5CF4D7A21C3515D00D9A168 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5CF4D7921C3515D00D9A168 /* ViewController.swift */; };
 		F5CF4D7D21C3515D00D9A168 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5CF4D7B21C3515D00D9A168 /* Main.storyboard */; };
@@ -16,6 +24,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F58679E121C36387002173B5 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		F58679E321C36428002173B5 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		F58679E621C3A505002173B5 /* DRHNameAndPictureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DRHNameAndPictureCell.swift; sourceTree = "<group>"; };
+		F58679E721C3A505002173B5 /* DRHNameAndPictureCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DRHNameAndPictureCell.xib; sourceTree = "<group>"; };
+		F58679EA21C3A659002173B5 /* EmailAndAboutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailAndAboutCell.swift; sourceTree = "<group>"; };
+		F58679EB21C3A659002173B5 /* EmailAndAboutCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmailAndAboutCell.xib; sourceTree = "<group>"; };
+		F58679EE21C3A755002173B5 /* AttributeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributeCell.swift; sourceTree = "<group>"; };
+		F58679EF21C3A755002173B5 /* AttributeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AttributeCell.xib; sourceTree = "<group>"; };
 		F5CF4D7421C3515D00D9A168 /* tableViewMultipleCellType.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tableViewMultipleCellType.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5CF4D7721C3515D00D9A168 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F5CF4D7921C3515D00D9A168 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -37,6 +53,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F58679E521C3A4CB002173B5 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				F58679E621C3A505002173B5 /* DRHNameAndPictureCell.swift */,
+				F58679E721C3A505002173B5 /* DRHNameAndPictureCell.xib */,
+				F58679EA21C3A659002173B5 /* EmailAndAboutCell.swift */,
+				F58679EB21C3A659002173B5 /* EmailAndAboutCell.xib */,
+				F58679EE21C3A755002173B5 /* AttributeCell.swift */,
+				F58679EF21C3A755002173B5 /* AttributeCell.xib */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		F5CF4D6B21C3515D00D9A168 = {
 			isa = PBXGroup;
 			children = (
@@ -58,6 +87,9 @@
 			children = (
 				F5CF4D7721C3515D00D9A168 /* AppDelegate.swift */,
 				F5CF4D7921C3515D00D9A168 /* ViewController.swift */,
+				F58679E121C36387002173B5 /* Model.swift */,
+				F58679E321C36428002173B5 /* ViewModel.swift */,
+				F58679E521C3A4CB002173B5 /* Cell */,
 				F5CF4D7B21C3515D00D9A168 /* Main.storyboard */,
 				F5CF4D7E21C3515D00D9A168 /* Assets.xcassets */,
 				F5CF4D8021C3515D00D9A168 /* LaunchScreen.storyboard */,
@@ -128,8 +160,11 @@
 			files = (
 				F5CF4D8A21C3549200D9A168 /* ServerData.json in Resources */,
 				F5CF4D8221C3515D00D9A168 /* LaunchScreen.storyboard in Resources */,
+				F58679F121C3A755002173B5 /* AttributeCell.xib in Resources */,
 				F5CF4D7F21C3515D00D9A168 /* Assets.xcassets in Resources */,
 				F5CF4D7D21C3515D00D9A168 /* Main.storyboard in Resources */,
+				F58679ED21C3A659002173B5 /* EmailAndAboutCell.xib in Resources */,
+				F58679E921C3A505002173B5 /* DRHNameAndPictureCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -142,6 +177,11 @@
 			files = (
 				F5CF4D7A21C3515D00D9A168 /* ViewController.swift in Sources */,
 				F5CF4D7821C3515D00D9A168 /* AppDelegate.swift in Sources */,
+				F58679E421C36428002173B5 /* ViewModel.swift in Sources */,
+				F58679E221C36387002173B5 /* Model.swift in Sources */,
+				F58679EC21C3A659002173B5 /* EmailAndAboutCell.swift in Sources */,
+				F58679F021C3A755002173B5 /* AttributeCell.swift in Sources */,
+				F58679E821C3A505002173B5 /* DRHNameAndPictureCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -20,6 +20,7 @@ protocol ProfileViewModelItem {
     var type: ProfileViewModelItemType {get}
     var rowCount: Int {get}
     var sectionTitle: String {get}
+    var isCollapsed: Bool {get set}
 }
 
 extension ProfileViewModelItem {
@@ -35,6 +36,7 @@ class ProfileViewModelNameAndPictureItem: ProfileViewModelItem {
     var sectionTitle: String {
         return "Main Info"
     }
+    var isCollapsed = false
     
     var pictureURL : String
     var userName: String
@@ -53,6 +55,7 @@ class ProfileViewModelAboutItem: ProfileViewModelItem {
     var sectionTitle: String {
         return "About"
     }
+    var isCollapsed = false
     
     var about: String
     
@@ -69,6 +72,7 @@ class ProfileViewModelEmailItem: ProfileViewModelItem{
     var sectionTitle: String {
         return "Email"
     }
+    var isCollapsed = false
     
     var email: String
     
@@ -85,6 +89,7 @@ class ProfileViewModelAttributeItem: ProfileViewModelItem{
     var sectionTitle: String {
         return "Attributes"
     }
+    var isCollapsed = false
     
     var rowCount: Int{
         return attributes.count
@@ -106,6 +111,7 @@ class ProfileViewModelFriendsItem: ProfileViewModelItem{
     var sectionTitle: String{
         return "Friends"
     }
+    var isCollapsed = false
     
     var rowCount: Int{
         return friends.count
@@ -120,11 +126,13 @@ class ProfileViewModelFriendsItem: ProfileViewModelItem{
 
 class ProfileViewModel: NSObject {
     var items = [ProfileViewModelItem]()
+    //call back to reload table section
+    var reloadSections: ((_ section: Int) -> Void )?
     
     override init() {
         super.init()
         
-        
+        print("init mock-up data")
         guard let data = dataFromFile("ServerData"), let profile = Profile(data: data) else {
             print("return from failing to parse mock-up data")
             return
@@ -164,11 +172,18 @@ class ProfileViewModel: NSObject {
 
 extension ProfileViewModel: UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
+        //print("number of Sections \(items.count)")
         return items.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items[section].rowCount
+        let item = items[section]
+        if item.isCollapsed {
+            print("numberOfRow In Section: 0")
+            return 0
+        }
+        //print("number of row in section: \(item.rowCount)")
+        return item.rowCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -179,18 +194,20 @@ extension ProfileViewModel: UITableViewDataSource{
         case .nameAndPicture:
             if let cell = tableView.dequeueReusableCell(withIdentifier: DRHNameAndPictureCell.identifier, for: indexPath) as? DRHNameAndPictureCell {
                 cell.item = item
-                print(".nameAndpicture")
+                print("create cell nameAndpicture")
                 return cell
             }
         
         case .about:
             if let cell = tableView.dequeueReusableCell(withIdentifier: EmailAndAboutCell.identifier, for: indexPath) as? EmailAndAboutCell {
                 cell.item = item
+                print("create cell about")
                 return cell
             }
         case .email:
             if let cell = tableView.dequeueReusableCell(withIdentifier: EmailAndAboutCell.identifier, for: indexPath) as? EmailAndAboutCell {
                 cell.item = item
+                print("create cell email")
                 return cell
             }
         case .friend:
@@ -198,7 +215,7 @@ extension ProfileViewModel: UITableViewDataSource{
                 if let friendItem = item as? ProfileViewModelFriendsItem {
                     cell.friendItem = friendItem.friends[indexPath.row]
                 }
-                
+                print("create cell friend")
                 return cell
             }
             
@@ -208,21 +225,26 @@ extension ProfileViewModel: UITableViewDataSource{
                 if let attributeItem = item as? ProfileViewModelAttributeItem {
                     cell.item = attributeItem.attributes[indexPath.row]
                 }
-                
+                print("create cell attribute")
                 return cell
             }
  
         default:
-            print("case default")
+            print("creat cell default")
             return UITableViewCell()
         }
         
         return UITableViewCell()
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    /*
+     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
         return items[section].sectionTitle
     }
+    */
+    
+    
 }
 
 public func dataFromFile (_ fileName: String) -> Data? {
@@ -236,3 +258,40 @@ public func dataFromFile (_ fileName: String) -> Data? {
 }
 
 
+extension ProfileViewModel: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        print("invoke tableView: view For Header In Section")
+        
+        if let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: HeaderView.identifier) as? HeaderView{
+            
+         //headerView.item = items[section]
+         headerView.section = section
+         headerView.delegate = self
+ 
+         print("return from ViewFOrHeaderInSection with successful")
+         return headerView
+         
+         }
+ 
+        print("return from Viewfor HeaderInSection with fail")
+        
+        return UIView()
+    }
+    
+}
+
+extension ProfileViewModel: HeaderViewDelegate{
+    func toggleSelection(header: HeaderView, section: Int) {
+        var item = items[section]
+        
+        let collapsed = !item.isCollapsed
+        item.isCollapsed = collapsed
+        header.setCollapsed(collapsed: collapsed)
+        
+        //adjust the number of row inside a section
+        reloadSections?(section)
+    }
+    
+    
+}

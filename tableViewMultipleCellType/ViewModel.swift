@@ -124,14 +124,16 @@ class ProfileViewModel: NSObject {
     override init() {
         super.init()
         
+        
         guard let data = dataFromFile("ServerData"), let profile = Profile(data: data) else {
+            print("return from failing to parse mock-up data")
             return
         }
-        
         //initialization code will go here
         if let name = profile.fullName, let pictureURL = profile.pictureURL {
             let nameAndPictureItem = ProfileViewModelNameAndPictureItem(pictureURL: pictureURL, userName: name)
             items.append(nameAndPictureItem)
+            
         }
         
         if let about = profile.about {
@@ -156,17 +158,8 @@ class ProfileViewModel: NSObject {
             let friendItem = ProfileViewModelFriendsItem(friends: friends)
             items.append(friendItem)
         }
+        
     }
-}
-
-public func dataFromFile (_ fileName: String) -> Data? {
-    @objc class TestClass: NSObject {}
-    
-    let bundle = Bundle (for: TestClass.self)
-    if let path = bundle.path(forResource: fileName, ofType: "json"){
-        return (try? Data(contentsOf:URL( fileURLWithPath: path)))
-    }
-    return nil
 }
 
 extension ProfileViewModel: UITableViewDataSource{
@@ -180,6 +173,66 @@ extension ProfileViewModel: UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //configure cell here
+        let item = items[indexPath.section]
         
+        switch item.type {
+        case .nameAndPicture:
+            if let cell = tableView.dequeueReusableCell(withIdentifier: DRHNameAndPictureCell.identifier, for: indexPath) as? DRHNameAndPictureCell {
+                cell.item = item
+                print(".nameAndpicture")
+                return cell
+            }
+        
+        case .about:
+            if let cell = tableView.dequeueReusableCell(withIdentifier: EmailAndAboutCell.identifier, for: indexPath) as? EmailAndAboutCell {
+                cell.item = item
+                return cell
+            }
+        case .email:
+            if let cell = tableView.dequeueReusableCell(withIdentifier: EmailAndAboutCell.identifier, for: indexPath) as? EmailAndAboutCell {
+                cell.item = item
+                return cell
+            }
+        case .friend:
+            if let cell = tableView.dequeueReusableCell(withIdentifier: DRHNameAndPictureCell.identifier, for: indexPath) as? DRHNameAndPictureCell {
+                if let friendItem = item as? ProfileViewModelFriendsItem {
+                    cell.friendItem = friendItem.friends[indexPath.row]
+                }
+                
+                return cell
+            }
+            
+        case .attribute:
+            if let cell = tableView.dequeueReusableCell(withIdentifier: AttributeCell.identifier, for: indexPath) as? AttributeCell {
+                //cell.item = attributes[indexPath.row]
+                if let attributeItem = item as? ProfileViewModelAttributeItem {
+                    cell.item = attributeItem.attributes[indexPath.row]
+                }
+                
+                return cell
+            }
+ 
+        default:
+            print("case default")
+            return UITableViewCell()
+        }
+        
+        return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return items[section].sectionTitle
     }
 }
+
+public func dataFromFile (_ fileName: String) -> Data? {
+    @objc class TestClass: NSObject {}
+    
+    let bundle = Bundle (for: TestClass.self)
+    if let path = bundle.path(forResource: fileName, ofType: "json"){
+        return (try? Data(contentsOf:URL( fileURLWithPath: path)))
+    }
+    return nil
+}
+
+

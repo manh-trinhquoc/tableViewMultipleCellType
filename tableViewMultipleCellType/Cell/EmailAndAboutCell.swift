@@ -23,4 +23,23 @@ class EmailAndAboutCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    var item: ProfileViewModelItem? {
+        didSet {
+            if let item = item as? ProfileViewModelAboutItem {
+                emailAndAboutLabel?.text = item.about
+            }
+            if let item = item as? ProfileViewModelEmailItem {
+                emailAndAboutLabel?.text = item.email
+            }
+        }
+    }
+    
+    class var identifier: String{
+        return String(describing: self)
+    }
+    
+    class var nib: UINib {
+        return UINib(nibName: identifier, bundle: nil)
+    }
+    
 }

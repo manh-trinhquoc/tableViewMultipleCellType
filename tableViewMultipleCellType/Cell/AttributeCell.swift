@@ -10,6 +10,8 @@ import UIKit
 
 class AttributeCell: UITableViewCell {
 
+    @IBOutlet var titleLabel: UILabel!
+    @IBOutlet var valueLabel: UILabel!
     
     
     override func awakeFromNib() {
@@ -21,6 +23,21 @@ class AttributeCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    var item: Attribute? {
+        didSet {
+            titleLabel?.text = item?.key
+            valueLabel?.text = item?.value
+        }
+    }
+    
+    class var identifier: String{
+        return String(describing: self)
+    }
+    
+    class var nib: UINib {
+        return UINib(nibName: identifier, bundle: nil)
     }
     
 }

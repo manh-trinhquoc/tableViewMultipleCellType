@@ -26,8 +26,31 @@ class DRHNameAndPictureCell: UITableViewCell {
     
     var item: ProfileViewModelItem?{
         didSet{
-            
+            if let item = item as? ProfileViewModelNameAndPictureItem {
+                name?.text = item.userName
+                picture?.image = UIImage(named: item.pictureURL)
+            }
         }
+    }
+    
+    var friendItem: Friend?{
+        didSet {
+            guard let item = friendItem else {
+                return
+            }
+            if let pictureURL = item.pictureURL {
+                picture?.image = UIImage(named: pictureURL)
+            }
+            name?.text = item.name
+        }
+    }
+    
+    class var identifier: String{
+        return String(describing: self)
+    }
+    
+    class var nib: UINib {
+        return UINib(nibName: identifier, bundle: nil)
     }
 }
 

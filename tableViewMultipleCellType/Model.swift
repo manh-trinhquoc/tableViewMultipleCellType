@@ -19,8 +19,8 @@ class Profile {
     init? (data:Data){
         do {
             if let json = try JSONSerialization.jsonObject(with: data) as? [String: Any], let body = json["data"] as? [String: Any]{
-                self.fullName = body["fullname"] as? String
-                self.pictureURL = body["pictureURL"] as? String
+                self.fullName = body["fullName"] as? String
+                self.pictureURL = body["pictureUrl"] as? String
                 self.about = body["about"] as? String
                 self.email = body["email"] as? String
                 
@@ -45,7 +45,7 @@ class Friend {
     
     init(json: [String: Any]) {
         self.name = json["name"] as? String
-        self.pictureURL = json["pictureURL"] as? String
+        self.pictureURL = json["pictureUrl"] as? String
     }
 }
 

@@ -18,6 +18,11 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         tableView.dataSource = viewModel
+        
+        tableView.register(DRHNameAndPictureCell.nib, forCellReuseIdentifier: DRHNameAndPictureCell.identifier)
+        
+        tableView.register(EmailAndAboutCell.nib, forCellReuseIdentifier: EmailAndAboutCell.identifier)
+        tableView.register(AttributeCell.nib, forCellReuseIdentifier: AttributeCell.identifier)
     }
 
     override func didReceiveMemoryWarning() {
